@@ -22,16 +22,16 @@ describe("auth api test", () => {
             })
         // should show error if password missing
         await request
-        .post(config.api.auth.register)
-        .send({ username: data.username })
-        .set(headers)
-        .expect(422)
-        .expect((res) => {
-            expect(res.body).toMatchObject({
-                "success": false,
-                "message": "Passwords must be at least 6 characters long"
-            });
-        })
+            .post(config.api.auth.register)
+            .send({ username: data.username })
+            .set(headers)
+            .expect(422)
+            .expect((res) => {
+                expect(res.body).toMatchObject({
+                    "success": false,
+                    "message": "Passwords must be at least 6 characters long"
+                });
+            })
         // should register a user with username and password
         await request
             .post(config.api.auth.register)
@@ -88,17 +88,17 @@ describe("auth api test", () => {
             })
         // user should be able to login with username and password
         await request
-        .get(config.api.auth.login)
-        .send(data)
-        .set(headers)
-        .expect(200)
-        .expect((res) => {
-            expect(res.body.user.username).toBe(data.username)
-        })
-        .expect((res) => {
-            expect(res.body.token).toBeDefined()
-            if(runTest.all && res.body.token) data.token = res.body.token
-        })
+            .get(config.api.auth.login)
+            .send(data)
+            .set(headers)
+            .expect(200)
+            .expect((res) => {
+                expect(res.body.user.username).toBe(data.username)
+            })
+            .expect((res) => {
+                expect(res.body.token).toBeDefined()
+                if (runTest.all && res.body.token) data.token = res.body.token
+            })
 
-    });   
+    });
 });

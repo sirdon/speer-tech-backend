@@ -4,9 +4,9 @@ require("../dbConnect")
 
 let stockSchema = new Schema({
     userId: { type: Schema.Types.ObjectId, ref: "Users" },
-    stockId: { type: Schema.Types.ObjectId, ref:"ListedStocks" },
-    price:{ type: Number, default: 0 },
-    quantity:{ type: Number, default: 0 },
+    stockId: { type: Schema.Types.ObjectId, ref: "ListedStocks" },
+    price: { type: Number, default: 0 },
+    quantity: { type: Number, default: 0 },
     isActive: { type: Boolean, default: true },
 }, {
     timestamps: {

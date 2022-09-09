@@ -12,6 +12,10 @@ app.use(bodyParser.json());
 
 // middleware
 
+app.get('/', (req, res) => {
+    res.send(200).json({ message: "health check successful" })
+})
+
 app.use("/api/v1", Router)
 
 app.listen(PORT, (err) => {

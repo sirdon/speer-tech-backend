@@ -5,10 +5,10 @@ const crypto = require("crypto");
 require("../dbConnect")
 
 let userSchema = new Schema({
-    username: { type: String, require: true, unique: true},
+    username: { type: String, require: true, unique: true },
     hashed_password: { type: String, require: true },
     balance: { type: Number, default: 0 },
-    liveSubscription: { type:Boolean, default: false},
+    liveSubscription: { type: Boolean, default: false },
     salt: { type: String, require: true },
     token: { type: String, require: true },
     isActive: { type: Boolean, default: true },

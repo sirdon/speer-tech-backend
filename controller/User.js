@@ -54,9 +54,9 @@ module.exports = {
     },
     async getPorfolio(req, res) {
         try {
-            const userData = await Stock.find({ userId: req.user._id, isActive:true });
+            const userData = await Stock.find({ userId: req.user._id, isActive: true });
             return res.status(200).json({
-                portfolio:userData, status: true
+                portfolio: userData, status: true
             });
         } catch (error) {
             return res.status(400).send({
@@ -67,23 +67,23 @@ module.exports = {
     async buyStock(req, res) {
         try {
             const { symbol, quantity } = req.body
-            const userData = await Users.findOne({ _id: req.user._id, isActive: true});
+            const userData = await Users.findOne({ _id: req.user._id, isActive: true });
             if (!userData) throw new Error("user not found");
-            
+
             const listedStockData = await ListedStock.findOne({ symbol });
             if (!listedStockData) throw new Error("stock not found with symbol: " + symbol);
             const stockPrice = await services.getCurrentPriceBySymbol(symbol)
             if (stockPrice && quantity * stockPrice <= userData.balance) {
                 const existingStock = await Stock.findOne({ userId: req.user._id, stockId: listedStockData._id, isActive: true });
                 if (existingStock) {
-                    existingStock.price = (existingStock.price*existingStock.quantity + quantity * stockPrice)/(existingStock.quantity + quantity)
+                    existingStock.price = (existingStock.price * existingStock.quantity + quantity * stockPrice) / (existingStock.quantity + quantity)
                     existingStock.quantity = existingStock.quantity + quantity
                     await existingStock.save()
                 } else {
-                    const stockData = { 
-                        stockId: listedStockData._id, 
-                        userId: req.user._id, 
-                        price: stockPrice, 
+                    const stockData = {
+                        stockId: listedStockData._id,
+                        userId: req.user._id,
+                        price: stockPrice,
                         quantity: quantity
                     }
                     await new Stock(stockData).save()
@@ -91,10 +91,10 @@ module.exports = {
                 userData.balance = userData.balance - quantity * stockPrice;
                 await userData.save();
             } else {
-                throw new Error(`You required to add ${userData.balance-quantity * stockPrice} to place this order`)
+                throw new Error(`You required to add ${userData.balance - quantity * stockPrice} to place this order`)
             }
             return res.status(200).json({
-                message:`symbol quantity: ${quantity} bought at ${stockPrice}`, status: true
+                message: `symbol quantity: ${quantity} bought at ${stockPrice}`, status: true
             });
         } catch (error) {
             return res.status(400).send({
@@ -105,7 +105,7 @@ module.exports = {
     async sellStock(req, res) {
         try {
             const { symbol, quantity } = req.body
-            const userData = await Users.findOne({ _id: req.user._id, isActive: true});
+            const userData = await Users.findOne({ _id: req.user._id, isActive: true });
             if (!userData) throw new Error("user not found");
             const listedStockData = await ListedStock.findOne({ symbol });
             if (!listedStockData) throw new Error("stock not found with symbol: " + symbol);
@@ -125,7 +125,7 @@ module.exports = {
                 throw new Error(`You don't have this stock in your account`)
             }
             return res.status(200).json({
-                message:`${symbol} quantity: ${quantity} sold at price ${stockPrice}`, status: true
+                message: `${symbol} quantity: ${quantity} sold at price ${stockPrice}`, status: true
             });
         } catch (error) {
             return res.status(400).send({
@@ -142,11 +142,11 @@ module.exports = {
                 await userData.save()
             } else {
                 return res.status(200).json({
-                    message:"You already have a live subscription", status: true
+                    message: "You already have a live subscription", status: true
                 });
             }
             return res.status(200).json({
-                message:"Live subscription started successfully", status: true
+                message: "Live subscription started successfully", status: true
             });
         } catch (error) {
             return res.status(400).send({
@@ -160,7 +160,7 @@ module.exports = {
             const userData = await Users.findOne({ userId: req.user._id, isActive: true });
             if (userData && !userData.liveSubscription) throw new Error("You don't have a live subscription, please subscription first")
             const stockDetails = await services.getLiveDataBySymbol(symbol)
-            if(stockDetails) return res.status(200).json({
+            if (stockDetails) return res.status(200).json({
                 stockDetails, status: true
             });
             else {

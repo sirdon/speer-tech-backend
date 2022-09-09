@@ -5,8 +5,8 @@ module.exports = {
     async getLiveDataBySymbol(symbol) {
         try {
             let stockDetails;
-            await nseIndia.getEquityDetails(symbol.toUpperCase()).then(details  => {
-                stockDetails= details.priceInfo
+            await nseIndia.getEquityDetails(symbol.toUpperCase()).then(details => {
+                stockDetails = details.priceInfo
             })
             if (stockDetails) return stockDetails;
         } catch (error) {
@@ -17,10 +17,10 @@ module.exports = {
         try {
             let price;
             await nseIndia.getEquityDetails(symbol.toUpperCase()).then(details => {
-                if (details?.priceInfo?.lastPrice) price =  details.priceInfo.lastPrice
+                if (details?.priceInfo?.lastPrice) price = details.priceInfo.lastPrice
                 else throw new Error("Detail not found for symbol " + symbol)
             })
-            if(price) return price
+            if (price) return price
         } catch (error) {
             throw error;
         }

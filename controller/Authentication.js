@@ -61,7 +61,7 @@ module.exports = {
 
         } catch (error) {
             res.status(400).send({
-                status:false,
+                status: false,
                 error: error.message
             })
         }
@@ -71,7 +71,7 @@ module.exports = {
             res.clearCookie("token");
             res.status(200).json({
                 status: true,
-              message: "Logout successful",
+                message: "Logout successful",
             });
 
         } catch (error) {
@@ -83,7 +83,7 @@ module.exports = {
     },
     validateToken(req, res, next) {
         try {
-            
+
             const token = req.headers.token || req.body.token
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
             Users.findOne({ _id: decoded._id }).exec((err, user) => {
@@ -96,7 +96,7 @@ module.exports = {
                     req.user = decoded;
                     next();
                 }
-    
+
             })
         } catch (err) {
             return res.status(401).json({

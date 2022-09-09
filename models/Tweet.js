@@ -5,7 +5,7 @@ require("../dbConnect")
 let tweetSchema = new Schema({
     userId: { type: Schema.Types.ObjectId, ref: "Users" },
     content: { type: String, require: true },
-    like:{ type: Number, default: 0 },
+    like: { type: Number, default: 0 },
     isActive: { type: Boolean, default: true },
 }, {
     timestamps: {

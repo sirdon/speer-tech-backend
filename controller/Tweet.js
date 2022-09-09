@@ -19,8 +19,8 @@ module.exports = {
     },
     getTweet(req, res) {
         try {
-            const { tweetId } =  req.params || req.body
-            Tweets.findOne({ _id: tweetId, isActive:true }).exec((err, tweet) => {
+            const { tweetId } = req.params || req.body
+            Tweets.findOne({ _id: tweetId, isActive: true }).exec((err, tweet) => {
                 if (err || !tweet) {
                     return res.status(400).json({
                         message: "Tweet not found", status: false
@@ -37,7 +37,7 @@ module.exports = {
     },
     getAllTweet(req, res) {
         try {
-            Tweets.find({ userId: req.user._id, isActive:true }).exec((err, tweets) => {
+            Tweets.find({ userId: req.user._id, isActive: true }).exec((err, tweets) => {
                 if (err || !tweets) {
                     return res.status(400).json({
                         message: "Tweets not found", status: false
@@ -56,7 +56,7 @@ module.exports = {
         try {
             const { tweetId } = req.params || req.body
             const { content, like } = req.body
-            Tweets.findOne({ _id: tweetId,isActive:true }).exec((err, tweet) => {
+            Tweets.findOne({ _id: tweetId, isActive: true }).exec((err, tweet) => {
                 if (err || !tweet) {
                     return res.status(400).json({
                         message: "Tweet not found", status: false
@@ -75,7 +75,7 @@ module.exports = {
                         })
                     }
                     tweet.save()
-                    return res.status(200).json({ message:"tweet updated", status: 'success' });
+                    return res.status(200).json({ message: "tweet updated", status: 'success' });
                 }
             })
         } catch (error) {
@@ -117,7 +117,7 @@ module.exports = {
     retweet(req, res) {
         try {
             const { tweetId } = req.params || req.body
-            Tweets.findOne({ _id: tweetId, isActive:true }).exec((err, tweet) => {
+            Tweets.findOne({ _id: tweetId, isActive: true }).exec((err, tweet) => {
                 if (err || !tweet) {
                     return res.status(400).json({
                         error: "Tweet not exist with id " + tweetId,
