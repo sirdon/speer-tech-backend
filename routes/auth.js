@@ -4,6 +4,6 @@ const AuthController = require('../controller/Authentication');
 const { userRegisterValidation, userLoginValidation } = require('../validation/auth')
 const { runValidation } = require("../validation");
 routes.post("/register", userRegisterValidation, runValidation, AuthController.register)
-routes.get("/login", userLoginValidation, runValidation, AuthController.login)
-routes.get("/logout", AuthController.logout)
+routes.post("/login", userLoginValidation, runValidation, AuthController.login)
+routes.post("/logout", AuthController.logout)
 module.exports = routes
