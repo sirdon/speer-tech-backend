@@ -3,6 +3,7 @@
 # API documentation
 ## Routes
 Here is the API address: https://speer-tech.herokuapp.com.
+Postman collection link:- https://www.getpostman.com/collections/dd50c787caa388648d16
 ## Task 1
 ### Auth Api
 * POST - https://speer-tech.herokuapp.com/api/v1/auth/login: to login with username and password. You'll need to send a JSON in the request body:
